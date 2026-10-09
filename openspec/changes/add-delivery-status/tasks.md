@@ -2,7 +2,7 @@
 
 ## 1. Application
 
-- [ ] 1.1 Create the Mule 4 project (Java 17, Maven, runtime 4.9.x) with an HTTP listener; verified by `mvn clean package` succeeding
+- [ ] 1.1 Create the Mule 4 project (Java 17, Maven, runtime 4.12.x) with an HTTP listener; verified by `mvn clean package` succeeding
 - [ ] 1.2 Add the sample orders and the `GET /api/orders/{orderNumber}/delivery-status` endpoint with the responses in the spec; verified by `mvn clean package` succeeding (HTTP behaviour is verified in group 2)
 
 ## 2. Evidence

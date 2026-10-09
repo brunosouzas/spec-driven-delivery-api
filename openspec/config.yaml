@@ -5,7 +5,7 @@ context: |
   article. The repository history is part of the example: keep artifacts short and
   readable, written in English.
 
-  Stack: Mule 4 (runtime 4.9.x), Java 17, Maven. The application has no external
+  Stack: Mule 4 (runtime 4.12.x), Java 17, Maven. The application has no external
   systems; data lives in a DataWeave variable that stands in for a database.
   No MUnit: each spec scenario is demonstrated in the README with a curl call and
   the real response captured from the running application.

@@ -18,4 +18,4 @@ Mule 4 API; the point is how it gets built.
 
 ## Build
 
-Java 17 and Maven. Mule runtime 4.9.x.
+Java 17 and Maven. Mule runtime 4.12.x.
