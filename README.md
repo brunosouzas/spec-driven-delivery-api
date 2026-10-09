@@ -22,6 +22,11 @@ Follow it in the commit history and in `openspec/`.
 The `add-delivery-status` change is implemented and each of its scenarios is
 proven with a real call (see [Evidence](#evidence), run on Mule runtime 4.12.3).
 
+The `add-estimated-delivery-date` change adds `estimatedDeliveryDate` to the
+successful response. The three success calls below were re-run on Mule runtime
+4.12.3 with it. One call per unchanged error scenario (`404`, `400`, `405`) was
+re-run and returned the same status line, `Content-Type` and body as before.
+
 ## Evidence
 
 Each scenario of `add-delivery-status`, run against the application deployed on a
@@ -34,11 +39,12 @@ real responses.
 $ curl -si http://localhost:8081/api/orders/1001/delivery-status
 HTTP/1.1 200 OK
 content-type: application/json
-content-length: 53
+content-length: 94
 
 {
   "orderNumber": "1001",
-  "status": "IN_TRANSIT"
+  "status": "IN_TRANSIT",
+  "estimatedDeliveryDate": "2026-10-15"
 }
 ```
 
@@ -48,11 +54,12 @@ content-length: 53
 $ curl -si http://localhost:8081/api/orders/1002/delivery-status
 HTTP/1.1 200 OK
 content-type: application/json
-content-length: 50
+content-length: 91
 
 {
   "orderNumber": "1002",
-  "status": "PENDING"
+  "status": "PENDING",
+  "estimatedDeliveryDate": "2026-10-20"
 }
 ```
 
@@ -62,11 +69,12 @@ content-length: 50
 $ curl -si http://localhost:8081/api/orders/1003/delivery-status
 HTTP/1.1 200 OK
 content-type: application/json
-content-length: 52
+content-length: 85
 
 {
   "orderNumber": "1003",
-  "status": "DELIVERED"
+  "status": "DELIVERED",
+  "estimatedDeliveryDate": null
 }
 ```
 
