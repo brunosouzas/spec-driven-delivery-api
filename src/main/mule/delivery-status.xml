@@ -25,7 +25,11 @@
       <ee:message>
         <ee:set-payload><![CDATA[%dw 2.0
 output application/java
-var orders = {"1001": "IN_TRANSIT", "1002": "PENDING", "1003": "DELIVERED"}
+var orders = {
+  "1001": { status: "IN_TRANSIT", estimatedDeliveryDate: "2026-10-15" },
+  "1002": { status: "PENDING", estimatedDeliveryDate: "2026-10-20" },
+  "1003": { status: "DELIVERED", estimatedDeliveryDate: null }
+}
 var orderNumber = attributes.uriParams.orderNumber
 ---
 if (attributes.method != "GET")
@@ -35,7 +39,11 @@ else if (!(orderNumber matches /[0-9]{1,20}/))
 else if (orders[orderNumber] == null)
   { code: 404, body: { message: "Order $(orderNumber) not found" } }
 else
-  { code: 200, body: { orderNumber: orderNumber, status: orders[orderNumber] } }]]></ee:set-payload>
+  { code: 200, body: {
+    orderNumber: orderNumber,
+    status: orders[orderNumber].status,
+    estimatedDeliveryDate: orders[orderNumber].estimatedDeliveryDate
+  } }]]></ee:set-payload>
       </ee:message>
     </ee:transform>
   </flow>
