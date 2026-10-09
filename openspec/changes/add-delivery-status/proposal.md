@@ -18,7 +18,8 @@ Decided with the product owner (2026-10-09):
 - Successful response body `{"orderNumber": "...", "status": "..."}`, JSON.
   Only these two fields. Errors return JSON with only `message`.
 - Order number is an identifier matched exactly as sent; leading zeros are kept.
-- Any method other than `GET` on the endpoint returns `405`.
+- `POST`, `PUT`, `PATCH` and `DELETE` on the endpoint return `405`, before any
+  order-number check. `HEAD` and `OPTIONS` are out of scope.
 - Status values `PENDING`, `IN_TRANSIT`, `DELIVERED`.
 - Order number is 1 to 20 digits; anything else returns `400`.
 - A well-formed order number that does not exist returns `404`: the order is

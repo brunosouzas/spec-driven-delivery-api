@@ -66,10 +66,17 @@ when the order number does not match `[0-9]{1,20}` (ASCII digits only, 1 to 20).
 - **AND** the body is `{"message": "Invalid order number: 123456789012345678901"}`
 
 ### Requirement: Unsupported method
-The API SHALL respond `405` with body `{"message": "Method not allowed"}` to any
-method other than `GET` on `/api/orders/{orderNumber}/delivery-status`.
+The API SHALL respond `405` with body `{"message": "Method not allowed"}` to
+`POST`, `PUT`, `PATCH` and `DELETE` on `/api/orders/{orderNumber}/delivery-status`,
+whatever the order number: the order number is validated and looked up only for
+`GET`. `HEAD`, `OPTIONS` and other methods are out of scope.
 
 #### Scenario: POST on the endpoint
 - **WHEN** a client sends `POST /api/orders/1001/delivery-status`
+- **THEN** the API responds `405`
+- **AND** the body is `{"message": "Method not allowed"}`
+
+#### Scenario: Method is checked before the order number
+- **WHEN** a client sends `POST /api/orders/abc/delivery-status`
 - **THEN** the API responds `405`
 - **AND** the body is `{"message": "Method not allowed"}`
