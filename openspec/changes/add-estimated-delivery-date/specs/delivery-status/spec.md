@@ -7,8 +7,8 @@ The order number is an identifier matched exactly as sent: leading zeros are
 part of it and are not removed. A successful response SHALL have status `200`,
 header `Content-Type: application/json` and a body with exactly three fields:
 `orderNumber` (string, as sent), `status` (one of `PENDING`, `IN_TRANSIT`,
-`DELIVERED`) and `estimatedDeliveryDate` (string `YYYY-MM-DD`, or `null` when
-the order is `DELIVERED`).
+`DELIVERED`) and `estimatedDeliveryDate`, which SHALL be a `YYYY-MM-DD` string
+for `PENDING` and `IN_TRANSIT` and SHALL be `null` for `DELIVERED`.
 
 #### Scenario: Known order in transit
 - **WHEN** a client sends `GET /api/orders/1001/delivery-status` and order `1001` has status `IN_TRANSIT` and estimated delivery date `2026-10-15`
