@@ -15,8 +15,10 @@ pedido, retorne o status da entrega."). No such API exists yet.
 Decided with the product owner (2026-10-09):
 
 - `GET /api/orders/{orderNumber}/delivery-status`.
-- Response body `{"orderNumber": "...", "status": "..."}`, JSON. Only these two
-  fields.
+- Successful response body `{"orderNumber": "...", "status": "..."}`, JSON.
+  Only these two fields. Errors return JSON with only `message`.
+- Order number is an identifier matched exactly as sent; leading zeros are kept.
+- Any method other than `GET` on the endpoint returns `405`.
 - Status values `PENDING`, `IN_TRANSIT`, `DELIVERED`.
 - Order number is 1 to 20 digits; anything else returns `400`.
 - A well-formed order number that does not exist returns `404`: the order is
@@ -35,7 +37,8 @@ Decided with the product owner (2026-10-09):
 
 1. **Order number format**: digits only, 1 to 20.
 2. **Status values**: `PENDING`, `IN_TRANSIT`, `DELIVERED`, in English.
-3. **Response content**: only `orderNumber` and `status`.
+3. **Response content**: only `orderNumber` and `status` on success; only
+   `message` on error.
 4. **Unknown order**: `404`. The owner asked whether a missing order is a
    business error (`400`) or "page not found" (`404`); without a spec, the
    implementer would have picked one silently.
@@ -55,5 +58,7 @@ None.
 ## Impact
 
 - New Mule 4 application (Java 17, Maven, runtime 4.9.x) with one HTTP
-  listener and one flow; sample data in a DataWeave variable.
+  listener; sample data in a DataWeave variable.
 - `README.md` gains curl calls and real responses for each scenario.
+- Other paths under the application are out of scope and keep Mule's default
+  behaviour.
