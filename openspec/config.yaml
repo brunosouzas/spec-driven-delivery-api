@@ -1,0 +1,31 @@
+schema: spec-driven
+
+context: |
+  A small Mule 4 API that exists to show spec-driven development to readers of an
+  article. The repository history is part of the example: keep artifacts short and
+  readable, written in English.
+
+  Stack: Mule 4 (runtime 4.9.x), Java 17, Maven. The application has no external
+  systems; data lives in a DataWeave variable that stands in for a database.
+  No MUnit: each spec scenario is demonstrated in the README with a curl call and
+  the real response captured from the running application.
+
+  Size every artifact to the request. A small change gets a short proposal,
+  a design.md of a few lines and few tasks. Plan only what the request asks for.
+
+rules:
+  proposal:
+    - State what is out of scope.
+    - Do not add capabilities, options or requirements the request does not ask for.
+    - When the request is unclear, list the open question instead of choosing an answer.
+  specs:
+    - Specify only behaviour this change adds or modifies.
+    - Describe observable HTTP behaviour (status, body, headers), not implementation.
+    - No requirement for hypothetical future needs, extension points or configurability nobody asked for.
+    - A delta that creates a new capability starts with a `## Purpose` of at least 50 characters; without it the archive writes a placeholder that `openspec validate --strict` rejects.
+  design:
+    - Without a technical decision between real alternatives, keep design.md to a few lines that say so (tasks stay blocked until the file exists).
+    - Prefer the existing structure, dependencies and conventions of the repository; justify anything new.
+  tasks:
+    - Every task traces back to the proposal; no extra refactors, abstractions or cleanups.
+    - Each task states how it is verified. Verification is a build plus a curl call per spec scenario, recorded in the README.
