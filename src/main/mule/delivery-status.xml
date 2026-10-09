@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mule xmlns="http://www.mulesoft.org/schema/mule/core"
+      xmlns:http="http://www.mulesoft.org/schema/mule/http"
+      xmlns:ee="http://www.mulesoft.org/schema/mule/ee/core"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:schemaLocation="
+        http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+        http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd
+        http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd">
+
+  <http:listener-config name="listenerConfig">
+    <http:listener-connection host="0.0.0.0" port="8081"/>
+  </http:listener-config>
+
+  <flow name="delivery-status">
+    <http:listener config-ref="listenerConfig" path="/api/orders/{orderNumber}/delivery-status">
+      <http:response statusCode="#[payload.code]">
+        <http:body>#[output application/json --- payload.body]</http:body>
+        <http:headers>#[{'Content-Type': 'application/json'}]</http:headers>
+      </http:response>
+    </http:listener>
+
+    <!-- The orders variable stands in for a database. -->
+    <ee:transform>
+      <ee:message>
+        <ee:set-payload><![CDATA[%dw 2.0
+output application/java
+var orders = {"1001": "IN_TRANSIT", "1002": "PENDING", "1003": "DELIVERED"}
+var orderNumber = attributes.uriParams.orderNumber
+---
+if (attributes.method != "GET")
+  { code: 405, body: { message: "Method not allowed" } }
+else if (!(orderNumber matches /[0-9]{1,20}/))
+  { code: 400, body: { message: "Invalid order number: $(orderNumber)" } }
+else if (orders[orderNumber] == null)
+  { code: 404, body: { message: "Order $(orderNumber) not found" } }
+else
+  { code: 200, body: { orderNumber: orderNumber, status: orders[orderNumber] } }]]></ee:set-payload>
+      </ee:message>
+    </ee:transform>
+  </flow>
+</mule>
