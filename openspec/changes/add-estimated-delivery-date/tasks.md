@@ -1,8 +1,5 @@
 # Tasks
 
-Blocked until the product owner answers the open questions in `proposal.md`
-or accepts the proposed defaults.
-
 ## 1. Application
 
 - [ ] 1.1 Add the estimated delivery date to the sample orders and `estimatedDeliveryDate` to the success body in `src/main/mule/delivery-status.xml`; verified by `mvn clean package` succeeding (HTTP behaviour is verified in group 2)
