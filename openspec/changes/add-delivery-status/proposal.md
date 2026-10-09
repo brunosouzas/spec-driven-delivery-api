@@ -58,7 +58,7 @@ None.
 
 ## Impact
 
-- New Mule 4 application (Java 17, Maven, runtime 4.9.x) with one HTTP
+- New Mule 4 application (Java 17, Maven, runtime 4.12.x) with one HTTP
   listener; sample data in a DataWeave variable.
 - `README.md` gains curl calls and real responses for each scenario.
 - Other paths under the application are out of scope and keep Mule's default
