@@ -12,14 +12,16 @@ pedido, retorne o status da entrega."). No such API exists yet.
   (project convention; no external systems).
 - Responses for an unknown order number and for a malformed order number.
 
-Proposed defaults (marked *proposal*, to confirm with the product owner; see
-Open Questions):
+Decided with the product owner (2026-10-09):
 
-- *proposal*: `GET /api/orders/{orderNumber}/delivery-status`.
-- *proposal*: response body `{"orderNumber": "...", "status": "..."}`, JSON.
-- *proposal*: status values `PENDING`, `IN_TRANSIT`, `DELIVERED`.
-- *proposal*: order number is 1 to 20 digits; anything else returns `400`.
-- *proposal*: unknown order number returns `404`.
+- `GET /api/orders/{orderNumber}/delivery-status`.
+- Response body `{"orderNumber": "...", "status": "..."}`, JSON. Only these two
+  fields.
+- Status values `PENDING`, `IN_TRANSIT`, `DELIVERED`.
+- Order number is 1 to 20 digits; anything else returns `400`.
+- A well-formed order number that does not exist returns `404`: the order is
+  the resource named by the URL, and the resource was not found. `400` stays
+  for a request that is malformed.
 
 ## Out of Scope
 
@@ -29,14 +31,16 @@ Open Questions):
 - Integration with any real order or logistics system.
 - API specification publishing (RAML/OAS in Exchange), deployment.
 
-## Open Questions
+## Decisions on the open questions
 
-1. **Order number format**: digits only? Length? Prefixes such as `PED-123`?
-2. **Status values**: which statuses exist, and in Portuguese or English?
-3. **Response content**: only the status, or also fields like last update time?
-4. **Unknown order**: `404`, or `200` with an "unknown" status?
-5. **Consumers and access**: who calls the API, and does it need authentication?
-6. **Path and naming**: is there an existing URL convention to follow?
+1. **Order number format**: digits only, 1 to 20.
+2. **Status values**: `PENDING`, `IN_TRANSIT`, `DELIVERED`, in English.
+3. **Response content**: only `orderNumber` and `status`.
+4. **Unknown order**: `404`. The owner asked whether a missing order is a
+   business error (`400`) or "page not found" (`404`); without a spec, the
+   implementer would have picked one silently.
+5. **Consumers and access**: local example, no authentication (out of scope).
+6. **Path and naming**: the proposed path.
 
 ## Capabilities
 

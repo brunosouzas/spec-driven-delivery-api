@@ -1,9 +1,5 @@
 # Tasks
 
-## 0. Before implementation
-
-- [ ] 0.1 Get product owner answers to the proposal's open questions and update the spec if they differ from the defaults; verified by the owner approving the change
-
 ## 1. Application
 
 - [ ] 1.1 Create the Mule 4 project (Java 17, Maven, runtime 4.9.x) with an HTTP listener; verify with `mvn clean package`

@@ -9,8 +9,7 @@ The API SHALL return the current delivery status of an order when called with
 `GET /api/orders/{orderNumber}/delivery-status` for an order number it knows.
 The response SHALL have status `200`, header `Content-Type: application/json`
 and a body with `orderNumber` (string) and `status` (one of `PENDING`,
-`IN_TRANSIT`, `DELIVERED`). Path, body shape and status values are proposals
-pending the open questions in the proposal.
+`IN_TRANSIT`, `DELIVERED`).
 
 #### Scenario: Known order
 - **WHEN** a client sends `GET /api/orders/1001/delivery-status` and order `1001` has status `IN_TRANSIT`
