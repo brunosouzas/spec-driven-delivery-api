@@ -20,7 +20,7 @@ Mule 4 API; the point is how it gets built.
 
 Java 17 and Maven. Mule runtime 4.12.x.
 
-## Delivery
+## Technology
 
 Stack: Mule 4, Maven, OpenSpec, GitHub Actions
 Delivery: E reference
