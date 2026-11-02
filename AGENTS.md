@@ -19,3 +19,19 @@ Mule 4 API; the point is how it gets built.
 ## Build
 
 Java 17 and Maven. Mule runtime 4.12.x.
+
+## Technology
+
+Stack: Mule 4, Maven, OpenSpec, GitHub Actions
+Delivery: E reference
+Integration branch: `main`
+Data: none
+Article: `50-writing/spec-driven-development-in-practice/`
+
+- Build: `mvn -B clean package`
+- Test: `openspec validate --all --strict` (CI: `.github/workflows/openspec.yml`), plus the curl calls recorded in `README.md` against the running application
+- Run locally: run the packaged application on a Mule 4.12.x runtime and repeat the curl calls in `README.md`
+- Deliver and verify: `nothing is deployed; the OpenSpec workflow green on the merge commit, and the links and paths the article cites still work`
+
+This repository was made for the article above and keeps what it published
+(code, OpenSpec content and structure): every merge is the owner's.
