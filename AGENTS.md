@@ -26,7 +26,7 @@ Stack: Mule 4, Maven, OpenSpec, GitHub Actions
 Delivery: E reference
 Integration branch: `main`
 Data: none
-Article: `50-writing/spec-driven-development-in-practice/`
+Article: `brunosouzas-content: writing/spec-driven-development-in-practice/`
 
 - Build: `mvn -B clean package`
 - Test: `openspec validate --all --strict` (CI: `.github/workflows/openspec.yml`), plus the curl calls recorded in `README.md` against the running application
